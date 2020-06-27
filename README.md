@@ -2,7 +2,7 @@
 
 #### DNF DIMACS to CNF DIMACS converter
 
-Tseitin transformation takes input file in DNF DIMACS format and produces output file CNF DIMACS format.
+Tseitin transformation takes input file in DNF DIMACS format and produces output file in CNF DIMACS format.
 
 Usage examples:
 
