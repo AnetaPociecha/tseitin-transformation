@@ -1,5 +1,7 @@
 package pl.edu.agh;
 
+import java.io.*;
+
 public final class CNFFile extends AbstractFile {
 
     private CNFFile(String name, String text) {
@@ -10,13 +12,25 @@ public final class CNFFile extends AbstractFile {
         private String name;
         private String text;
 
-        public CNFFile.CNFFileBuilder filepath(String filepath) {
-            this.name = "tseitin";
-            this.text = "1 -2 3 4 -5 0\n" +
-                    "2 -3 -4 5 6 0\n" +
-                    "-1 2 -3 4 5 0\n" +
-                    "1 -3 4 5 6 0\n" +
-                    "-2 -3 4 5 6 0\n";
+        public CNFFile.CNFFileBuilder filepath(String filepath) throws IOException {
+
+            if(!filepath.endsWith(".cnf")) {
+                throw new IllegalFileExtensionException(".cnf file is expected");
+            }
+
+            File file = new File(filepath);
+            BufferedReader br = new BufferedReader(new FileReader(file));
+
+            StringBuilder stringBuilder = new StringBuilder();
+            String buffer;
+
+            while ((buffer = br.readLine()) != null) {
+                stringBuilder.append(buffer);
+            }
+
+            this.name = file.getName();
+            this.text = stringBuilder.toString();
+
             return this;
         }
 
