@@ -1,11 +1,13 @@
 package pl.edu.agh;
 
+import java.io.IOException;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TseitinTransformationTest {
 
     @org.junit.jupiter.api.Test
-    void perform() {
+    void perform() throws IOException {
         String inputFormula = "1 -2 3 4 -5 0\n" +
                 "2 -3 -4 5 6 0\n" +
                 "-1 2 -3 4 5 0\n" +
@@ -103,7 +105,9 @@ class TseitinTransformationTest {
                 "-330 320 290 0\n" +
                 "330 0";
 
-        TseitinTransformation tseitinTransformation = new TseitinTransformation(inputFormula);
+        DNFFile.DNFFileBuilder builder = new DNFFile.DNFFileBuilder();
+        DNFFile dnfFile = builder.text(inputFormula).name("output").build();
+        TseitinTransformation tseitinTransformation = new TseitinTransformation(dnfFile);
         CNFFile outputFile = tseitinTransformation.convertDNFToCNF();
         String actualOutputFormula = outputFile.getText();
 
